@@ -6,8 +6,6 @@ CREATE DATABASE products;
 
 -- products
 
-DROP TABLE IF EXISTS products;
-
 CREATE TABLE products (
   id bigserial PRIMARY KEY,
   name text NOT NULL,
@@ -20,8 +18,6 @@ CREATE TABLE products (
 
 -- features
 
-DROP TABLE IF EXISTS features;
-
 CREATE TABLE features (
   id bigserial PRIMARY KEY,
   product_id bigint NOT NULL references products(id),
@@ -31,8 +27,6 @@ CREATE TABLE features (
 
 
 -- styles
-
-DROP TABLE IF EXISTS styles;
 
 CREATE TABLE styles (
   id bigserial PRIMARY KEY,
@@ -45,8 +39,6 @@ CREATE TABLE styles (
 
 -- photos
 
-DROP TABLE IF EXISTS photos;
-
 CREATE TABLE photos (
   id bigserial PRIMARY KEY,
   style_id bigint NOT NULL references styles(id),
@@ -57,8 +49,6 @@ CREATE TABLE photos (
 
 -- inventory
 
-DROP TABLE IF EXISTS inventory;
-
 CREATE TABLE inventory (
   id bigserial PRIMARY KEY,
   style_id bigint NOT NULL references styles(id),
@@ -68,10 +58,8 @@ CREATE TABLE inventory (
 
 -- related
 
-DROP TABLE IF EXISTS related;
-
 CREATE TABLE related (
-  relate_id INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  id bigserial PRIMARY KEY,
   current_product_id bigint references products(id),
   related_product_id bigint references products(id)
 );
