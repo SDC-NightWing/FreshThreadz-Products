@@ -3,7 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const products = require('./router.js')
 const app = express();
-const db = require('./db/mongoDB.js')
+// const mongo = require('./db/mongoDB.js');
+const psql = require('./db/postgresDB.js');
 
 app.use(express.json());
 app.use(morgan('dev'));

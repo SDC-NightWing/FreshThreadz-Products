@@ -4,8 +4,8 @@ const { Schema } = mongoose;
 mongoose.connect('mongodb://localhost:27017/products', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
-db.on('error', () => {console.log('DB CONNECTION ERR')})
-db.on('open', () => {console.log('DB IS OPEN')})
+db.on('error', () => {console.log('mongo db connection err')})
+db.on('open', () => {console.log('mongo db connected')})
 
 const productSchema = new Schema({
   id: Number,
