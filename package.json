@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/SDC-NightWing/rfp2207-sdc-products#readme",
   "dependencies": {
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "dotenv": "^16.0.2",
