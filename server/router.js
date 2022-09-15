@@ -14,9 +14,7 @@ router.get('/:product_id/styles', (req, res) => {
   res.send('style end point')
 })
 
-router.get('/:product_id/related', (req, res) => {
-  res.send('related end point')
-})
+router.get('/:product_id/related', controller.getRelated);
 
 
 

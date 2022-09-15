@@ -13,5 +13,6 @@ pool.connect();
 pool.query('SELECT NOW()', (err, res) => {
   if (err) { console.log('psql db connection err')}
   else {console.log('psql db connected')}
-  pool.end()
 })
+
+module.exports = pool;
