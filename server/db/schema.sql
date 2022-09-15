@@ -32,16 +32,16 @@ CREATE TABLE styles (
   id bigserial PRIMARY KEY,
   productId bigint NOT NULL references products(id),
   name text,
-  original_price int DEFAULT NULL,
-  sale_price int DEFAULT NULL,
-  default_style int DEFAULT 0
+  original_price text DEFAULT NULL,
+  sale_price text DEFAULT NULL,
+  default_style text DEFAULT 0
 );
 
 -- photos
 
 CREATE TABLE photos (
   id bigserial PRIMARY KEY,
-  style_id bigint NOT NULL references styles(id),
+  styleId bigint NOT NULL references styles(id),
   thumbnail_url text DEFAULT NULL,
   url text DEFAULT NULL
 );
@@ -49,9 +49,9 @@ CREATE TABLE photos (
 
 -- inventory
 
-CREATE TABLE inventory (
+CREATE TABLE skus (
   id bigserial PRIMARY KEY,
-  style_id bigint NOT NULL references styles(id),
+  styleId bigint NOT NULL references styles(id),
   size text DEFAULT NULL,
   quantity int DEFAULT 0
 );
@@ -61,5 +61,35 @@ CREATE TABLE inventory (
 CREATE TABLE related (
   id bigserial PRIMARY KEY,
   current_product_id bigint references products(id),
-  related_product_id bigint references products(id)
+  related_product_id bigint
 );
+
+COPY products(id, name, slogan, description, category, default_price)
+FROM '/Users/kathryngao/Desktop/sdc data/product.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY features(id, product_id, feature, value)
+FROM '/Users/kathryngao/Desktop/sdc data/features.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY styles(id, productId, name, original_price, sale_price, default_style)
+FROM '/Users/kathryngao/Desktop/sdc data/styles.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY photos(id, styleId, thumbnail_url, url)
+FROM '/Users/kathryngao/Desktop/sdc data/photos.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY skus(id, styleId, size, quantity)
+FROM '/Users/kathryngao/Desktop/sdc data/skus.csv'
+DELIMITER ','
+CSV HEADER;
+
+COPY related(id, current_product_id, related_product_id)
+FROM '/Users/kathryngao/Desktop/sdc data/related.csv'
+DELIMITER ','
+CSV HEADER;
