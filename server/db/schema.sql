@@ -12,7 +12,9 @@ CREATE TABLE products (
   slogan text DEFAULT NULL,
   description text DEFAULT NULL,
   category text DEFAULT NULL,
-  default_price int DEFAULT 0
+  default_price int DEFAULT 0,
+  created_at DATE DEFAULT CURRENT_DATE,
+  updated_at DATE DEFAULT CURRENT_DATE
 );
 
 
@@ -63,6 +65,8 @@ CREATE TABLE related (
   current_product_id bigint references products(id),
   related_product_id bigint
 );
+
+-- load data
 
 COPY products(id, name, slogan, description, category, default_price)
 FROM '/Users/kathryngao/Desktop/sdc data/product.csv'
