@@ -13,8 +13,8 @@ CREATE TABLE products (
   description text DEFAULT NULL,
   category text DEFAULT NULL,
   default_price int DEFAULT 0,
-  created_at DATE DEFAULT CURRENT_DATE,
-  updated_at DATE DEFAULT CURRENT_DATE
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
 );
 
 
