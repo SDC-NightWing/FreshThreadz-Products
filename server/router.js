@@ -6,9 +6,7 @@ router.get('/', controller.getProducts);
 
 router.get('/:product_id', controller.getOneProduct)
 
-router.get('/:product_id/styles', (req, res) => {
-  res.send('style end point')
-})
+router.get('/:product_id/styles', controller.getStyles)
 
 router.get('/:product_id/related', controller.getRelated);
 

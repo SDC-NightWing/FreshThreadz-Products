@@ -3,7 +3,7 @@ const pool = require('../db/postgresDB.js');
 module.exports.getProducts = (page, count) => {
   let start = page === 1 ? 1 : count + 1;
   let end = page * count;
-  console.log('start and end range', start, end)
+
   let query = {
     text: 'SELECT id, name, slogan, description, category, default_price FROM products WHERE id BETWEEN $1 AND $2',
     values: [start, end]
@@ -33,10 +33,37 @@ module.exports.getOneProduct = (id) => {
       .catch(err => console.log('failed to get ONE product detail (model) - ', err))
 }
 
+module.exports.getStyles = (id) => {
+  let query = `SELECT array_to_json(array_agg(row_to_json(d)))
+                FROM (
+                  SELECT id, name, original_price, sale_price, default_style,
+                  (
+                    SELECT array_to_json(array_agg(row_to_json(p)))
+                    FROM (
+                      SELECT thumbnail_url, url
+                      FROM photos
+                      WHERE photos.styleId = styles.id
+                    ) p
+                  ) AS photos,
+                  (
+                    SELECT array_to_json(array_agg(row_to_json(s)))
+                    FROM (
+                      SELECT id, quantity, size
+                      FROM skus
+                      WHERE skus.styleId = styles.id
+                    ) s
+                  )
+                  FROM styles
+                  WHERE styles.productId = $1
+              ) d`
+  let arg = [id];
+  return pool.query(query, arg)
+    .catch(err => console.log('failed to get product style (model) - ', err))
+}
 
 module.exports.getRelated = (id) => {
   let query = {
-    text: 'SELECT related_product_id FROM related WHERE current_product_id = $1',
+    text: 'SELECT related_product_id FROM related WHERE current_product_id = $1 AND related_product_id != 0',
     values: [id],
     rowMode: 'array'
   };
