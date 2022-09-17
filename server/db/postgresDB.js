@@ -11,7 +11,7 @@ const pool = new Pool({
 pool.connect();
 
 pool.query('SELECT NOW()', (err, res) => {
-  if (err) { console.log('psql db connection err')}
+  if (err) {console.log('psql db connection err')}
   else {console.log('psql db connected')}
 })
 
