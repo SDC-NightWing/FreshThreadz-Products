@@ -99,3 +99,14 @@ COPY related(id, current_product_id, related_product_id)
 FROM '/Users/kathryngao/Desktop/sdc data/related.csv'
 DELIMITER ','
 CSV HEADER;
+
+-- index
+CREATE INDEX features_productId_index ON features(product_id);
+
+CREATE INDEX style_productId_index ON styles(productId);
+
+CREATE INDEX photos_styleId_index ON photos(styleId);
+
+CREATE INDEX sku_styleId_index ON skus(styleId);
+
+CREATE INDEX related_curr_index ON related(current_product_id);
