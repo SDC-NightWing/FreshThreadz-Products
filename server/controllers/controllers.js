@@ -22,34 +22,7 @@ module.exports.getOneProduct = (req, res) => {
     .catch((err) => console.log('failed to get ONE product info (controller) - ', err))
 }
 
-module.exports.getStyles = (req, res) => {
-  model.getStyles(req.params.product_id)
-    .then((data) => {
-      let parsed = data.rows[0].array_to_json.map((style) => {
-        style.style_id = style.id;
-        style['default?'] = style.default_style ? true : false;
-        style.skus = {};
-        style.array_to_json.forEach((sku) => {
-          style.skus[sku.id] = {quantity: sku.quantity, size: sku.size}
-        })
-        delete style.default_style;
-        delete style.id;
-        delete style.array_to_json;
-        return style;
-      });
 
-      let finalParsed = {
-        product_id : req.params.product_id,
-        results: parsed
-      };
-
-      res.status(200).json(finalParsed);
-    })
-    .catch(err => {
-      console.log('failed to get product style (controller) - ', err);
-      res.sendStatus(404);
-    })
-}
 
 module.exports.getRelated = (req, res) => {
   model.getRelated(req.params.product_id)
@@ -60,4 +33,28 @@ module.exports.getRelated = (req, res) => {
       console.log('failed to get related data (controller) - ', err)
       res.sendStatus(404)
     });
+}
+
+
+module.exports.getStyles = (req, res) => {
+  model.getStyles(req.params.product_id)
+    .then((data) => {
+
+      let parsed = data.rows.map((style) => {
+        style.results.forEach((result) => {
+          result['default?'] = result['default?'] ? true : false;
+          result.photos.map((photo) => {
+            photo.thumbnail_url = photo.thumbnail_url.split("\"")[1]
+            photo.url = photo.url.split("\"")[1]
+            return photo;
+          })
+        })
+        return style;
+      });
+      res.status(200).json(data.rows)
+    })
+    .catch(err => {
+      console.log('failed to get product style (controller) - ', err);
+      res.sendStatus(404);
+    })
 }

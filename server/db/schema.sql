@@ -85,6 +85,8 @@ CSV HEADER;
 
 COPY photos(id, styleId, thumbnail_url, url)
 FROM '/Users/kathryngao/Desktop/sdc data/photos.csv'
+QUOTE '\'
+ESCAPE '"'
 DELIMITER ','
 CSV HEADER;
 
