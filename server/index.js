@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const morgan = require('morgan');
-const products = require('./router.js')
+const products = require('./routers/router.js')
 const app = express();
 // const mongo = require('./db/mongoDB.js');
 const psql = require('./db/postgresDB.js');

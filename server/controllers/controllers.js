@@ -43,11 +43,6 @@ module.exports.getStyles = (req, res) => {
       let parsed = data.rows.map((style) => {
         style.results.forEach((result) => {
           result['default?'] = result['default?'] ? true : false;
-          result.photos.map((photo) => {
-            photo.thumbnail_url = photo.thumbnail_url.split("\"")[1]
-            photo.url = photo.url.split("\"")[1]
-            return photo;
-          })
         })
         return style;
       });
