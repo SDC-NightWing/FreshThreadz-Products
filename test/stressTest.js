@@ -1,8 +1,6 @@
 import http from 'k6/http';
 import k6example from 'https://raw.githubusercontent.com/grafana/k6/master/samples/thresholds_readme_example.js';
 import { sleep } from 'k6';
-import { jUnit, textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
-import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 import endpoints from "./endpoints.js"
 
 export const options = {
