@@ -9,7 +9,6 @@ module.exports.getProducts = (req, res) => {
       res.status(200).json(data.rows)
     })
     .catch((err) => {
-      console.log('failed to get related data (controller) - ', err)
       res.sendStatus(404)
     });
 }
@@ -17,9 +16,9 @@ module.exports.getProducts = (req, res) => {
 module.exports.getOneProduct = (req, res) => {
   model.getOneProduct(req.params.product_id)
     .then((data) => {
-      res.send(data.rows[0].row_to_json);
+      res.status(200).json(data.rows[0].row_to_json);
     })
-    .catch((err) => console.log('failed to get ONE product info (controller) - ', err))
+    .catch((err) => res.sendStatus(404))
 }
 
 
@@ -30,7 +29,6 @@ module.exports.getRelated = (req, res) => {
       res.status(200).json(data.rows.flat().map(Number))
     })
     .catch((err) => {
-      console.log('failed to get related data (controller) - ', err)
       res.sendStatus(404)
     });
 }
@@ -39,17 +37,15 @@ module.exports.getRelated = (req, res) => {
 module.exports.getStyles = (req, res) => {
   model.getStyles(req.params.product_id)
     .then((data) => {
-
-      let parsed = data.rows.map((style) => {
-        style.results.forEach((result) => {
-          result['default?'] = result['default?'] ? true : false;
-        })
-        return style;
-      });
+      // let parsed = data.rows.map((style) => {
+      //   style.results.forEach((result) => {
+      //     result['default?'] = result['default?'] ? true : false;
+      //   })
+      //   return style;
+      // });
       res.status(200).json(data.rows)
     })
     .catch(err => {
-      console.log('failed to get product style (controller) - ', err);
       res.sendStatus(404);
     })
 }

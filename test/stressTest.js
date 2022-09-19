@@ -1,37 +1,35 @@
 import http from 'k6/http';
-import k6example from 'https://raw.githubusercontent.com/grafana/k6/master/samples/thresholds_readme_example.js';
 import { sleep } from 'k6';
-import endpoints from "./endpoints.js"
 
 export const options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse: false,
   stages: [
-    { duration: '2m', target: 100 }, // below normal load
+    { duration: '2m', target: 1 },
+    { duration: '5m', target: 1 },
+    { duration: '2m', target: 10 },
+    { duration: '5m', target: 10 },
+    { duration: '2m', target: 100 },
     { duration: '5m', target: 100 },
-    { duration: '2m', target: 200 }, // normal load
-    { duration: '5m', target: 200 },
-    { duration: '2m', target: 300 }, // around the breaking point
-    { duration: '5m', target: 300 },
-    { duration: '2m', target: 400 }, // beyond the breaking point
-    { duration: '5m', target: 400 },
-    { duration: '10m', target: 0 }, // scale down. Recovery stage.
+    { duration: '2m', target: 1000 },
+    { duration: '5m', target: 1000 },
+    { duration: '10m', target: 0 },
   ],
   thresholds: {
     http_req_duration: ['p(99)<50']
   }
 };
 
-export function handleSummary(data) {
-  return {
-    "test/testData/summaryPage.html": htmlReport(data),
-    stdout: textSummary(data, { indent: " ", enableColors: true })
-  };
-}
-
-
 export default function () {
-  const responses = http.batch(endpoints);
+  const getRandomInt(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  const res = http.get(`http://localhost:8080/products?page=${getRandomInt(100000, 100000)}&count=5`);
+  // const res = http.get(`http://localhost:8080/products/${getRandomInt(100000, 1000000)}`);
+  // const res = http.get(`http://localhost:8080/products/${getRandomInt(100000, 1000000)}/styles`);
+  // const res = http.get(`http://localhost:8080/products/${getRandomInt(100000, 1000000)}/related`);
+  check(res, { 'status was 200': (res) => res.status == 200 });
 
   sleep(1);
 }
