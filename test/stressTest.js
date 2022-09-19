@@ -1,5 +1,5 @@
 import http from 'k6/http';
-import { sleep, check} from 'k6';
+import { sleep, check } from 'k6';
 
 export const options = {
   insecureSkipTLSVerify: true,
@@ -20,15 +20,17 @@ export const options = {
   }
 };
 
+
 export default function () {
   const getRandomInt = (min, max) => {
-    return Math.random() * (max - min) + min;
+    return Math.floor(Math.random() * (max - min) + min);
   }
 
   // const res = http.get(`http://localhost:8080/products?page=${getRandomInt(1e4, 1e5)}&count=5`);
-  const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}`);
-  // const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}/styles`);
+  // const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}`);
+  const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}/styles`);
   // const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}/related`);
+
   check(res, { 'status was 200': (res) => res.status == 200 });
 
   sleep(1);
