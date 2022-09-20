@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { Client, Pool } = require('pg');
 
-const pool = new Pool({
+const client = new Client({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
   database: process.env.PGDATABASE,
@@ -14,11 +14,11 @@ const pool = new Pool({
   // port: 5432,
 })
 
-pool.connect();
+client.connect();
 
-pool.query('SELECT NOW()', (err, res) => {
+client.query('SELECT NOW()', (err, res) => {
   if (err) {console.log('psql db connection err', err)}
   else {console.log('psql db connected')}
 })
 
-module.exports = pool;
+module.exports = client;
