@@ -28,8 +28,8 @@ export default function () {
 
   // const res = http.get(`http://localhost:8080/products?page=${getRandomInt(1e4, 1e5)}&count=5`);
   // const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}`);
-  const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}/styles`);
-  // const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}/related`);
+  // const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}/styles`);
+  const res = http.get(`http://localhost:8080/products/${getRandomInt(1e5, 1e6)}/related`);
 
   check(res, { 'status was 200': (res) => res.status == 200 });
 
