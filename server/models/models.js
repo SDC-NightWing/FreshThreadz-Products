@@ -8,6 +8,7 @@ module.exports.getProducts = (page, count) => {
     text: 'SELECT id, name, slogan, description, category, default_price FROM products WHERE id BETWEEN $1 AND $2',
     values: [start, end]
   }
+
   return pool.query(query)
     .catch(err => console.log('failed to get products data (model) - ', err))
 }
