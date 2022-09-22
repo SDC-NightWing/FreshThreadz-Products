@@ -1,16 +1,26 @@
 const pool = require('../db/postgresDB.js');
 
-module.exports.getProducts = (page, count) => {
-  let start = (page - 1) * count + 1;
-  let end = page * count;
+// module.exports.getProducts = (page, count) => {
+//   let start = (page - 1) * count + 1;
+//   let end = page * count;
 
-  let query = {
-    text: 'SELECT id, name, slogan, description, category, default_price FROM products WHERE id BETWEEN $1 AND $2',
-    values: [start, end]
-  }
+//   let query = {
+//     text: 'SELECT id, name, slogan, description, category, default_price FROM products WHERE id BETWEEN $1 AND $2',
+//     values: [start, end]
+//   }
 
-  return pool.query(query)
-    .catch(err => console.log('failed to get products data (model) - ', err))
+//   return pool.query(query)
+//     .catch(err => console.log('failed to get products data (model) - ', err))
+// }
+
+module.exports.getProducts = async (page, count) => {
+  const q = `SELECT * FROM products ORDER BY id LIMIT ${count} OFFSET ${(page - 1) * count}`
+    try {
+      const res = await pool.query(q);
+      return res.rows;
+    } catch (err) {
+      console.error(err);
+    }
 }
 
 module.exports.getOneProduct = (id) => {

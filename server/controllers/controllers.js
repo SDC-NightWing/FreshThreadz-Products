@@ -1,17 +1,29 @@
 const model = require('../models/models.js');
 
+// module.exports.getProducts = async (req, res) => {
+//   let page = Number(req.query.page) || 1;
+//   let count = Number(req.query.count) || 5;
+
+//    model.getProducts(page, count)
+//     .then((data) => {
+//       res.status(200).json(data.rows)
+//     })
+//     .catch((err) => {
+//       console.log(err)
+//       res.sendStatus(404)
+//     });
+// }
+
 module.exports.getProducts = async (req, res) => {
   let page = Number(req.query.page) || 1;
   let count = Number(req.query.count) || 5;
-
-  await model.getProducts(page, count)
-    .then((data) => {
-      res.status(200).json(data.rows)
-    })
-    .catch((err) => {
-      console.log(err)
-      res.sendStatus(404)
-    });
+  try {
+    const result = await model.getProducts(page, count)
+    res.status(200).json(result)
+  } catch (err) {
+    console.log(err);
+    res.status(404).send(err);
+  }
 }
 
 module.exports.getOneProduct = (req, res) => {
