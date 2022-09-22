@@ -1,7 +1,6 @@
 const model = require('../models/models.js');
 
 module.exports.getProducts = (req, res) => {
-  let start = 65631;
   let page = Number(req.query.page) || 1;
   let count = Number(req.query.count) || 5;
   model.getProducts(page, count, start)
@@ -9,6 +8,7 @@ module.exports.getProducts = (req, res) => {
       res.status(200).json(data.rows)
     })
     .catch((err) => {
+      console.log(err)
       res.sendStatus(404)
     });
 }
@@ -18,7 +18,10 @@ module.exports.getOneProduct = (req, res) => {
     .then((data) => {
       res.status(200).json(data.rows[0].row_to_json);
     })
-    .catch((err) => res.sendStatus(404))
+    .catch((err) => {
+      console.log(err)
+      res.sendStatus(404)
+    })
 }
 
 module.exports.getRelated = (req, res) => {
