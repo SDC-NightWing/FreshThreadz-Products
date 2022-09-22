@@ -1,10 +1,10 @@
 const model = require('../models/models.js');
 
-module.exports.getProducts = (req, res) => {
+module.exports.getProducts = async (req, res) => {
   let page = Number(req.query.page) || 1;
   let count = Number(req.query.count) || 5;
-  let start = 65631;
-  model.getProducts(page, count, start)
+
+  await model.getProducts(page, count)
     .then((data) => {
       res.status(200).json(data.rows)
     })
