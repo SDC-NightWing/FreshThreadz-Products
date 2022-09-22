@@ -9,7 +9,7 @@ const psql = require('./db/postgresDB.js');
 app.use(express.json());
 app.use(morgan('dev'));
 
-app.get('/loaderio-daadd206ffb8d48319ab4cd1c68574a3/', (req, res) => res.send("loaderio-daadd206ffb8d48319ab4cd1c68574a3"));
+app.get(`/${process.env.LOADERIO}/`, (req, res) => res.send(process.env.LOADERIO));
 
 app.use('/products', products);
 
