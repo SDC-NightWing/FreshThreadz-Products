@@ -3,7 +3,7 @@ const model = require('../models/models.js');
 module.exports.getProducts = (req, res) => {
   let page = Number(req.query.page) || 1;
   let count = Number(req.query.count) || 5;
-  model.getProducts(page, count, start)
+  model.getProducts(page, count)
     .then((data) => {
       res.status(200).json(data.rows)
     })
