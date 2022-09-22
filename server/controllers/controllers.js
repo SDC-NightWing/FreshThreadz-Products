@@ -21,8 +21,6 @@ module.exports.getOneProduct = (req, res) => {
     .catch((err) => res.sendStatus(404))
 }
 
-
-
 module.exports.getRelated = (req, res) => {
   model.getRelated(req.params.product_id)
     .then(data => {
