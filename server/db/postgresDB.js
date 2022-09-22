@@ -7,6 +7,7 @@ const pool = new Pool({
   database: process.env.PGDATABASE,
   password: process.env.PASSWORD,
   port: process.env.PGPORT,
+  statement_timeout: 30000,
   // user: 'ubuntu',
   // host: 'ec2-54-219-130-189.us-west-1.compute.amazonaws.com',
   // database: 'products',
