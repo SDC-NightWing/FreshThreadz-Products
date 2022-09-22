@@ -15,6 +15,8 @@ app.get('/loaderio-60dd52b0ab1a1dc903078d5f873be0f1/', (req, res) => res.send("l
 
 app.get('/loaderio-9e620486d1d4c95489a43916177cc3a0/', (req, res) => res.send("loaderio-9e620486d1d4c95489a43916177cc3a0"));
 
+app.get('/loaderio-af06f2cf8e752b9ca4ab8712b39a1e88/'), (req, res) => res.send("loaderio-af06f2cf8e752b9ca4ab8712b39a1e88");
+
 app.use('/products', products)
 
 app.listen(process.env.PORT);
