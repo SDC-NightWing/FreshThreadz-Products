@@ -4,7 +4,7 @@ module.exports.getProducts = async (req, res) => {
   let page = Number(req.query.page) || 1;
   let count = Number(req.query.count) || 5;
 
-  await model.getProducts(page, count)
+  model.getProducts(page, count)
     .then((data) => {
       res.status(200).json(data.rows)
     })
@@ -14,7 +14,7 @@ module.exports.getProducts = async (req, res) => {
     });
 }
 
-module.exports.getOneProduct = (req, res) => {
+module.exports.getOneProduct = async (req, res) => {
   model.getOneProduct(req.params.product_id)
     .then((data) => {
       res.status(200).json(data.rows[0].row_to_json);
@@ -25,7 +25,7 @@ module.exports.getOneProduct = (req, res) => {
     })
 }
 
-module.exports.getRelated = (req, res) => {
+module.exports.getRelated = async (req, res) => {
   model.getRelated(req.params.product_id)
     .then(data => {
       res.status(200).json(data.rows.flat().map(Number))
@@ -36,7 +36,7 @@ module.exports.getRelated = (req, res) => {
 }
 
 
-module.exports.getStyles = (req, res) => {
+module.exports.getStyles = async (req, res) => {
   model.getStyles(req.params.product_id)
     .then((data) => {
       // let parsed = data.rows.map((style) => {
