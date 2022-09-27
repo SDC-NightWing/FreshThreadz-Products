@@ -11,14 +11,14 @@ Fresh threadz ecoomerce product microservice is deployed with AWS EC2 instances.
 
 ### 2. Deployement 
 - The postgreSQL and the initial server were deployed on AWS EC2 instance on US west region. 
-- At low latency (< 70ms) the single server can handle 500 throughput with 0% error rate
+- At low latency (< 70ms) the single server can handle 500 RPS with 0% error rate
 ![products 500](https://user-images.githubusercontent.com/106702313/192064364-1dc20963-9b24-4265-899d-7492f0116925.png)
-- After adding a nginx load balancer and an additional t2 micro server, it was able to handle 1k throughput at low latency (< 70ms) with 0% error rate.
+- After adding a nginx load balancer and an additional t2 micro server, it was able to handle 1k RPS at low latency (< 70ms) with 0% error rate.
 ![products 1000](https://user-images.githubusercontent.com/106702313/192065576-417c4b70-e173-4cb0-b573-c6e756ca9d1c.png)
 
 ### 3. Optimization
 - Caching was added to the nginx load balancer using the round robin / cycle through servers sequentially logic. I tested least connection logic caching as well but didn't see any major differences. 
-- After caching the servers were able to handle 6.5k throughput with 0% error rate and <70 ms latency
+- After caching the servers were able to handle 6.5k RPS with 0% error rate and <70 ms latency
 ![:products 6500](https://user-images.githubusercontent.com/106702313/192065846-9b3ca039-0a22-4e70-9dd7-052faa779172.png)
 
 ### Final thoughts 
