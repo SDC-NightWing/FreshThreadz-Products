@@ -1,5 +1,5 @@
 # Fresh Threadz Ecommerce Product Microservice
-Fresh threadz ecoomerce product microservice is deployed with AWS EC2 instances. It uses 2 t2 micro host servers, 1 postgreSQL database, and 1 nginx load-balancer. It supports 7k RPS average across four endpoints with 65ms latency and 0% error rate. 
+Fresh threadz ecoomerce product microservice is deployed with AWS EC2 instances. It uses 2 t2 micro host servers, 1 postgreSQL database, and 1 nginx load-balancer. It supports 6.5k RPS average across four endpoints with 65ms latency and 0% error rate. 
 
 ## Details 
 
